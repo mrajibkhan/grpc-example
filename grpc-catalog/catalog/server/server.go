@@ -6,7 +6,6 @@ import (
 	"context"
 	"encoding/json"
 	"flag"
-	"fmt"
 	pb "github.com/mrajibkhan/grpc-example/grpc-catalog/catalog"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -43,22 +42,8 @@ func (s *server) GetCatalogProductByName(ctx context.Context, in *pb.SearchReque
 	return c.CatalogItems[0].Product, nil
 }
 
-func loadCatalog() []pb.Catalog {
-	var catalogFile string
-	flag.StringVar(&catalogFile, "catalogFile", "catalog.json", "catalog (yaml) file path")
-
-	flag.Parse()
-
-	fmt.Printf("catalogFile: " + catalogFile)
-
-	catalogs := pb.GetCatalogFromJsonFile(catalogFile)
-
-	return catalogs
-}
-
 // loadFeatures loads features from a JSON file.
 func (s *server) loadCatalogs(filePath string) {
-	//catalogFile := flag.String("catalogFile", "catalog.json", "catalog (yaml) file path")
 	file, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		log.Fatalf("Failed to load default catalogs: %v", err)
@@ -77,7 +62,7 @@ func newServer(filePath string) *server {
 func main() {
 
 	var catalogFile string
-	flag.StringVar(&catalogFile, "catalogFile", "catalog.json", "catalog (yaml) file path")
+	flag.StringVar(&catalogFile, "catalogFile", "grpc-catalog/testdata/catalog.json", "catalog (json) file path")
 
 	lis, err := net.Listen("tcp", port)
 	if err != nil {

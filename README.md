@@ -10,7 +10,7 @@ Run server
 
 ```
 cd $GOPATH/src/github.com/mrajibkhan/grpc-example
-go run grpc-catalog/catalog/server/main.go 
+go run grpc-catalog/catalog/server/server.go 
 ```
 
 Run Client (in another terminal)
