@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 	"flag"
-	pb "go-grpc-example/grpc-catalog/catalog"
+	pb "github.com/mrajibkhan/grpc-example/grpc-catalog/catalog"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"io"

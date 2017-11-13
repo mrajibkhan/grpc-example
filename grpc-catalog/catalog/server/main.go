@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	pb "go-grpc-example/grpc-catalog/catalog"
+	pb "github.com/mrajibkhan/grpc-example/grpc-catalog/catalog"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"io/ioutil"
