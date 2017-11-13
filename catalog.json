@@ -1,0 +1,126 @@
+[
+  {
+    "catalogId": "1",
+    "catalogName": "Flowers",
+    "catalogItems": [
+      {
+        "product": {
+          "name": "Roses",
+          "code": "R12"
+        },
+        "bundles": [
+          {
+            "quantity": 5,
+            "price": 6.99
+          },
+          {
+            "quantity": 10,
+            "price": 12.99
+          }
+        ]
+      },
+      {
+        "product": {
+          "name": "Lilies",
+          "code": "L09"
+        },
+        "bundles": [
+          {
+            "quantity": 3,
+            "price": 9.95
+          },
+          {
+            "quantity": 6,
+            "price": 16.95
+          },
+          {
+            "quantity": 9,
+            "price": 24.95
+          }
+        ]
+      },
+      {
+        "product": {
+          "name": "Tulips",
+          "code": "T58"
+        },
+        "bundles": [
+          {
+            "quantity": 3,
+            "price": 5.95
+          },
+          {
+            "quantity": 5,
+            "price": 9.95
+          },
+          {
+            "quantity": 9,
+            "price": 16.99
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "catalogId": "2",
+    "catalogName": "Toys",
+    "catalogItems": [
+      {
+        "product": {
+          "name": "Spider man",
+          "code": "T500"
+        },
+        "bundles": [
+          {
+            "quantity": 1,
+            "price": 10.00
+          },
+          {
+            "quantity": 10,
+            "price": 79.99
+          }
+        ]
+      },
+      {
+        "product": {
+          "name": "Iron man",
+          "code": "T501"
+        },
+        "bundles": [
+          {
+            "quantity": 3,
+            "price": 30.00
+          },
+          {
+            "quantity": 6,
+            "price": 50.95
+          },
+          {
+            "quantity": 9,
+            "price": 75.95
+          }
+        ]
+      },
+      {
+        "product": {
+          "name": "Hulk",
+          "code": "T502"
+        },
+        "bundles": [
+          {
+            "quantity": 1,
+            "price": 15.95
+          },
+          {
+            "quantity": 5,
+            "price": 60.95
+          },
+          {
+            "quantity": 10,
+            "price": 99.99
+          }
+        ]
+      }
+    ]
+  }
+]
