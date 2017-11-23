@@ -51,4 +51,39 @@ func main() {
 
 	stream.CloseSend()
 	<-waitc
+
+	log.Println("Search catalog by name = %s", "Flowers")
+	var catalog, _ = client.GetCatalogByName(context.Background(), &pb.SearchRequest{CatalogName: "Toys"})
+
+	log.Println("catalog: ", catalog)
+
+	log.Println("Search product by catalog and product name = %s", "Flowers")
+	getCatalogItemsByName(client)
+
 }
+
+  func getCatalogItemsByName(client pb.CatalogServiceClient) {
+	  stream, err := client.GetCatalogItemByName(context.Background(), &pb.SearchRequest{CatalogName: "Toys", ProductName: "Spider man"})
+	  if err != nil {
+		  log.Fatalf("[client:] could not retrieve catalog from server: %v", err)
+	  }
+
+	  waitc := make(chan struct{})
+	  go func() {
+		  for {
+			  in, err := stream.Recv()
+			  if err == io.EOF {
+				  // read done.
+				  close(waitc)
+				  return
+			  }
+			  if err != nil {
+				  log.Fatalf("Failed to receive any Catalog Items : %v", err)
+			  }
+			  log.Printf("Got CatalogItems %s %s", in.Product, in.GetBundles())
+		  }
+	  }()
+
+	  stream.CloseSend()
+	  <-waitc
+  }

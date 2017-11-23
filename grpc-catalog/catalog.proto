@@ -33,7 +33,7 @@ message SearchRequest {
 }
 
 service CatalogService {
-  rpc GetCatalogs(Empty) returns (stream Catalog) {};
+  rpc GetCatalogs(Empty) returns (stream Catalog) {}
   rpc GetCatalogByName(SearchRequest) returns (Catalog) {}
-  rpc GetCatalogProductByName(SearchRequest) returns (Product) {}
+  rpc GetCatalogItemByName(SearchRequest) returns (stream CatalogItem) {}
 }

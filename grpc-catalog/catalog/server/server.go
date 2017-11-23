@@ -12,6 +12,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net"
+	"errors"
+	"fmt"
 )
 
 const (
@@ -27,20 +29,49 @@ var c = &pb.Catalog{}
 
 // GetCatalog implements CatalogServiceServer.GetCatalog
 func (s *server) GetCatalogs(in *pb.Empty, stream pb.CatalogService_GetCatalogsServer) error {
+	log.Printf("[GetCatalogs] total catalogs = %d ", len(s.catalogs))
 	for i, v := range s.catalogs {
-		log.Printf("array value at [%d]=%v", i, v)
+		log.Printf("straming catalog at [%d]=%v", i, v)
 		stream.Send(v)
 	}
 	return nil
 }
 
 func (s *server) GetCatalogByName(ctx context.Context, in *pb.SearchRequest) (*pb.Catalog, error) {
-	return c, nil
+	log.Printf("[GetCatalogByName] search catalog for: %v", in)
+	for _, c := range s.catalogs {
+		if c.CatalogName == in.CatalogName {
+			return c, nil
+		}
+	}
+
+	return nil, errors.New("not found")
 }
 
-func (s *server) GetCatalogProductByName(ctx context.Context, in *pb.SearchRequest) (*pb.Product, error) {
-	return c.CatalogItems[0].Product, nil
+func (s *server) GetCatalogItemByName(in *pb.SearchRequest, stream pb.CatalogService_GetCatalogItemByNameServer) error {
+	log.Printf("[GetCatalogItemByName] search catalog items for: %v", in)
+	var catalog = &pb.Catalog{}
+    match := false
+	if in.CatalogName != "" {
+		catalog, _ = s.GetCatalogByName(nil, &pb.SearchRequest{CatalogName: in.CatalogName})
+	}
+
+	for _, c := range catalog.CatalogItems {
+		if c.Product.Name == in.ProductName {
+			log.Printf("found match for product ", in.ProductName)
+			match = true;
+			stream.Send(c)
+		}
+	}
+
+
+	if !match {
+		return errors.New(fmt.Sprintf("Product %s not found in catalog %s", in.ProductName, in.CatalogName))
+	}
+
+	return nil
 }
+
 
 // loadFeatures loads features from a JSON file.
 func (s *server) loadCatalogs(filePath string) {
